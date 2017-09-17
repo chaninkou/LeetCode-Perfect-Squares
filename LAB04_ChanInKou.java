@@ -71,19 +71,19 @@ public class LAB04_ChanInKou {
 			int size = n / 2;
 			//first
 			adding(divideAndConquer(A, B, row1, column1, row2, column2, size),
-					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2, size),C,  0, 0);
+					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2, size), C,  0, 0);
 			
 			//second
 			adding(divideAndConquer(A, B, row1, column1, row2, column2 + size, size),
-					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2+ size, size),C,  0, size);
+					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2+ size, size), C,  0, size);
 			
 			//third
 			adding(divideAndConquer(A, B, row1 + size, column1, row2, column2, size),
-					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2, size),C, size, 0);
+					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2, size), C, size, 0);
 			
 			//fourth
 			adding(divideAndConquer(A, B, row1 + size, column1, row2, column2 + size, size),
-					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2 + size, size),C, size, size);
+					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2 + size, size), C, size, size);
 //			C[0][0] = A[0][0] * B[0][0] + A[0][1] * B[1][0];
 //			C[0][1] = A[0][0] * B[0][1] + A[0][1] * B[1][1];
 //			C[1][0] = A[1][0] * B[0][0] + A[1][1] * B[1][0];
@@ -93,12 +93,18 @@ public class LAB04_ChanInKou {
 	}
 	
 	public static void adding(int[][] A, int[][] B, int[][] C, int row, int column){
-		int n = A.length;
+		int n = B.length;
 		for(int i = 0; i < n; i++){
 			for(int j = 0; j < n; j++){
 				C[i+row][j+column] = A[i][j] + B[i][j];
 			}
 		}
+	}
+	
+	public static int[][] strassen(int[][] A, int[][] B, int[][] C){
+		int[][] S1;
+		
+		return C;
 		
 	}
 }
