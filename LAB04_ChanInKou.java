@@ -16,7 +16,7 @@ public class LAB04_ChanInKou {
 		// calling bruteforce method for matrix multiplication
 		bruteForce(matrixA, matrixB, n);
 		
-		int [][] matrixC = divideAndConquer(matrixB, matrixB, n);
+		int [][] matrixC = divideAndConquer(matrixB, matrixB, 0, 0, 0, 0, n);
 		
 		System.out.println("Divide and Conquer");
 		System.out.println(matrixC[0][0] + " " + matrixC[0][1]);
@@ -43,6 +43,7 @@ public class LAB04_ChanInKou {
 			}
 		}
 		
+		// loop for printing out the solution for nxn which is C
 		for (int i = 0; i < n; i++)
 		{
 			for (int j = 0; j < n; j++)
@@ -55,32 +56,49 @@ public class LAB04_ChanInKou {
 		System.out.println();
 	}
 	
-	public static int[][] divideAndConquer(int[][]A, int[][]B, int n){
+	// method for divide and conquer
+	public static int[][] divideAndConquer(int[][]A, int[][]B, int row1, int column1, int row2, int column2, int n){
 		// Make the final n x n matrix
 		int [][]C = new int[n][n];
 		
 		if(n==1)
 		{
-			C[0][0] =A[0][0] * B[0][0];
-			int[][] temp = {{C[0][0]}};
-			return temp;
+			C[0][0] =A[row1][column1] * B[row2][column2];
+			return C;
 		}
 		else{
-			C[0][0]= A[0][0] * B[0][0] + A[0][1] * B[1][0];
-			C[0][1] = A[0][0] * B[0][1] + A[0][1] * B[1][1];
-			C[1][0] = A[1][0] * B[0][0] + A[1][1] * B[1][0];
-			C[1][1] = A[1][0] * B[0][1] + A[1][1] * B[1][1];
+			// divide the problem by 2 everytime 
+			int size = n / 2;
+			//first
+			adding(divideAndConquer(A, B, row1, column1, row2, column2, size),
+					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2, size),C,  0, 0);
 			
+			//second
+			adding(divideAndConquer(A, B, row1, column1, row2, column2 + size, size),
+					divideAndConquer(A, B, row1, column1 + size, row2 + size, column2+ size, size),C,  0, size);
+			
+			//third
+			adding(divideAndConquer(A, B, row1 + size, column1, row2, column2, size),
+					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2, size),C, size, 0);
+			
+			//fourth
+			adding(divideAndConquer(A, B, row1 + size, column1, row2, column2 + size, size),
+					divideAndConquer(A, B, row1 + size, column1 + size, row2 + size, column2 + size, size),C, size, size);
+//			C[0][0] = A[0][0] * B[0][0] + A[0][1] * B[1][0];
+//			C[0][1] = A[0][0] * B[0][1] + A[0][1] * B[1][1];
+//			C[1][0] = A[1][0] * B[0][0] + A[1][1] * B[1][0];
+//			C[1][1] = A[1][0] * B[0][1] + A[1][1] * B[1][1];
 			return C;
+		}
+	}
+	
+	public static void adding(int[][] A, int[][] B, int[][] C, int row, int column){
+		int n = A.length;
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < n; j++){
+				C[i+row][j+column] = A[i][j] + B[i][j];
+			}
 		}
 		
 	}
-	
-//	public static int[][] divide(int[][]A, int[][]B, int[][]C, int n){
-//		C[0][0]= A[0][0] * B[0][0] + A[0][1] * B[1][0];
-//		C[0][1] = A[0][0] * B[0][1] + A[0][1] * B[1][1];
-//		C[1][0] = A[1][0] * B[0][0] + A[1][1] * B[1][0];
-//		C[1][1] = A[1][0] * B[0][1] + A[1][1] * B[1][1];
-//		return C;
-//	}
 }
