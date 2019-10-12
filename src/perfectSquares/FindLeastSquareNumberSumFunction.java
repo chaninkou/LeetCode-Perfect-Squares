@@ -6,6 +6,7 @@ public class FindLeastSquareNumberSumFunction {
     public int numSquares(int n) {
         int[] dp = new int[n + 1];
         
+        // Fill up the array with largest value so which ever number will replace
         Arrays.fill(dp, Integer.MAX_VALUE);
         
         dp[0] = 0;
