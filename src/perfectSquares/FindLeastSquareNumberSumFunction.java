@@ -3,7 +3,35 @@ package perfectSquares;
 import java.util.Arrays;
 
 public class FindLeastSquareNumberSumFunction {
+	// new version with dynamic programming O(n * sqrt(n)) which is O(n).
     public int numSquares(int n) {
+        int[] dp = new int[n + 1];
+        
+        for(int i = 1; i <= n; i++){
+            int sqrt = (int)Math.sqrt(i);
+            
+            // if already perfect squared
+            if(sqrt * sqrt == i){
+                dp[i] = 1;
+                continue;
+            }
+            
+            // instead of filling up the default array with max_value
+            int min = Integer.MAX_VALUE;
+            
+            for(int j = 1; j * j <= i; j++){
+                // + 1 same as 1 * 1
+                min = Math.min(min, dp[i - j * j] + 1);
+            }
+            
+            dp[i] = min;
+        }
+        
+        return dp[n];
+    }
+	
+	// old version, spend o(n) to fill up the array with max_value
+    public int numSquares1(int n) {
         int[] dp = new int[n + 1];
         
         // Fill up the array with largest value so which ever number will replace
