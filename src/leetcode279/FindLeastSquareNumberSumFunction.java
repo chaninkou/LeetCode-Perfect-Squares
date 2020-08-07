@@ -1,4 +1,4 @@
-package perfectSquares;
+package leetcode279;
 
 import java.util.Arrays;
 
