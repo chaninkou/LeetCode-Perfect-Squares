@@ -3,7 +3,7 @@ package leetcode279;
 import java.util.Arrays;
 
 public class FindLeastSquareNumberSumFunction {
-	// new version with dynamic programming O(n * sqrt(n)) which is O(n).
+	// dynamic programming O(n * sqrt(n)) which is O(n).
     public int numSquares(int n) {
         int[] dp = new int[n + 1];
         
